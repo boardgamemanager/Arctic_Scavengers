@@ -1,0 +1,812 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arctic Scavengers - Interactive Rules</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Noto+Sans+JP:wght@400;500;700&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', 'Noto Sans JP', 'Noto Sans SC', sans-serif; }
+        .bg-warm-neutral { background-color: #FDFBF6; }
+        .text-warm-dark { color: #3A3A3A; }
+        .text-warm-secondary { color: #706C61; }
+        .bg-accent { background-color: #A08C7D; }
+        .hover\:bg-accent-dark:hover { background-color: #8A776A; }
+        .border-accent { border-color: #A08C7D; }
+        .ring-accent { --tw-ring-color: #A08C7D; }
+        .active-lang {
+            background-color: #A08C7D;
+            color: white;
+            font-weight: 700;
+        }
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+        .accordion-content.open {
+            max-height: 500px; /* Adjust as needed for content length */
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .icon-display {
+            display: inline-block;
+            width: 1.5em;
+            text-align: center;
+        }
+    </style>
+</head>
+<body class="bg-warm-neutral text-warm-dark">
+
+    <div class="container mx-auto p-4 sm:p-6 md:p-8 max-w-5xl">
+
+        <header class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold mb-2">Arctic Scavengers</h1>
+            <div id="lang-switcher" class="flex justify-center space-x-2 my-4">
+                <button data-lang="jp" class="lang-btn px-4 py-2 rounded-md text-sm sm:text-base transition-colors duration-200 active-lang">日本語</button>
+                <button data-lang="en" class="lang-btn px-4 py-2 rounded-md text-sm sm:text-base transition-colors duration-200">English</button>
+                <button data-lang="cn" class="lang-btn px-4 py-2 rounded-md text-sm sm:text-base transition-colors duration-200">简体中文</button>
+            </div>
+            <p class="text-warm-secondary text-lg">
+                <span class="lang-content" id="lang-jp">最大勢力の部族を築き、極寒の世界を生き延びろ。</span>
+                <span class="lang-content hidden" id="lang-en">Build the largest tribe and survive the frozen world.</span>
+                <span class="lang-content hidden" id="lang-cn">建立最大的部落，在冰封世界中生存下去。</span>
+            </p>
+        </header>
+
+        <main>
+            <div class="lang-content space-y-12" id="lang-jp">
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">ゲームの目的</h2>
+                    <p class="text-warm-secondary mb-4">このセクションでは、ゲームの最終的な目標と、それを達成するための基本的な考え方を説明します。勝利への道筋を理解することが、戦略を立てる第一歩です。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <p class="text-lg">ゲームの最終目的は、ゲーム終了時に<strong class="text-accent-dark">「最も大きな部族」</strong>を築くことです。部族の大きさは、自分のデッキに含まれる全カードの右下に描かれた<strong class="text-accent-dark">「部族メンバーアイコン <span class="icon-display">👤</span>」</strong>の合計数で決まります。資源を集め、強力な仲間を雇い、ライバルとの小競り合いに勝利して、あなたの部族を最大勢力へと導きましょう。</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">ゲームの準備</h2>
+                    <p class="text-warm-secondary mb-4">ここでは、ゲームを始めるための準備を解説します。各プレイヤーが最初に受け取るカードや、共有のカード置き場について理解することで、スムーズにゲームを開始できます。</p>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3">初期デッキ (全10枚)</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>難民</strong> <span class="icon-display">👤</span> <span class="block text-sm text-warm-secondary">x4</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>ｽｶﾍﾞﾝｼﾞｬｰ</strong> <span class="icon-display">👤⛏️</span> <span class="block text-sm text-warm-secondary">x3</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>用心棒</strong> <span class="icon-display">👤🏹</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>槍</strong> <span class="icon-display">⚔️</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>シャベル</strong> <span class="icon-display">⛏️</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="deckChartJP"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm mt-8">
+                        <h3 class="text-xl font-semibold mb-3">カードの分類と配置</h3>
+                        <p class="mb-2">残りのカードは以下の3つの主要な山に分類されます。</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>争奪資源デッキ (Contested Resources Deck):</strong> 小競り合いの勝利によって獲得される貴重な資源（弾薬、医薬品、新たな仲間など）が入っています。シャッフルして争奪資源マットに裏向きに置きます。
+                            </li>
+                            <li>
+                                <strong>ジャンクヤードデッキ (Junkyard Deck):</strong> 道具、ジャンク、その他の有用なカードが入っており、「掘る」アクションで手に入ります。シャッフルしてジャンクヤードマットに裏向きに置きます。
+                            </li>
+                            <li>
+                                <strong>傭兵デッキ (Mercenary Decks):</strong> 強力な能力を持つ傭兵カード（8種類）が入っており、食料や医薬品を支払うことで雇い入れることができます。それぞれ表向きにプレイエリアに置かれます。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">カードの種類と概要</h2>
+                    <p class="text-warm-secondary mb-4">ゲーム中に登場する様々なカードの種類とその基本的な役割を説明します。各カードがゲームの進行にどう影響するかを理解する上で役立ちます。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">👤</strong> <strong>人物カード (People Cards):</strong> あなたの部族の核となるカードです。「部族メンバーアイコン 👤」を持ち、様々なアクション（掘る、狩る、引くなど）を実行したり、小競り合いで戦闘能力を発揮したりします。ゲーム終了時の勝利条件である部族の大きさに直結します。<strong class="text-accent-dark">傭兵デッキから入手します。</strong>例: 難民、スカベンジャー、用心棒、傭兵。</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>道具カード (Tool Cards):</strong> あなたの部族メンバーの能力を強化するためのカードです。「道具アイコン ⚙️」を持ち、単独ではアクションを実行できませんが、人物カードと組み合わせてそのアクションの効果を増大させます。<strong class="text-accent-dark">ジャンクヤードデッキから入手します。</strong>例: 槍、シャベル。</li>
+                            <li><strong class="icon-display">✊</strong> <strong>争奪資源カード (Contested Resource Cards):</strong> 小競り合いの勝利によってのみ獲得できる非常に価値の高いカードです。ゲーム終了時に勝利点としてカウントされ、タイブレーク条件としても重要になります。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">ゲームの流れ</h2>
+                    <p class="text-warm-secondary mb-4">各ラウンドは3つのフェーズで進行します。このセクションでは、その流れを視覚的に理解することができます。各フェーズで何ができるかを把握し、ラウンドごとの計画を立てましょう。ゲームは、最後の「争奪資源カード」が獲得された時点で終了します。</p>
+                    <div class="flex flex-col md:flex-row justify-around text-center gap-4">
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">1</div>
+                            <h3 class="text-xl font-semibold mt-2">カードを引く</h3>
+                            <p class="text-sm text-warm-secondary mt-1">山札から5枚引く</p>
+                        </div>
+                        <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">2</div>
+                            <h3 class="text-xl font-semibold mt-2">資源を集める</h3>
+                            <p class="text-sm text-warm-secondary mt-1">手札のカードでアクション実行</p>
+                        </div>
+                        <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">3</div>
+                            <h3 class="text-xl font-semibold mt-2">小競り合い</h3>
+                             <p class="text-sm text-warm-secondary mt-1">(第3ラウンドから) 資源を奪い合う</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">主なアクション</h2>
+                    <p class="text-warm-secondary mb-4">「資源を集める」フェーズ（フェーズ2）では、様々なアクションを実行して部族を強化します。ここでは各アクションの詳細を解説します。どのアクションをいつ実行するかが、戦略の鍵を握ります。</p>
+                    <div class="space-y-3 accordion-container">
+                        </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">カードプレイ時の注意</h2>
+                    <p class="text-warm-secondary mb-4">カードをプレイする際の一般的なルールや、特殊なカードの扱いについて説明します。これらの注意点を把握することで、よりスムーズにゲームを進めることができます。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <h3 class="font-semibold mb-1">道具を使う (<span class="icon-display">⚙️</span>)</h3>
+                                <p>道具カード <span class="icon-display">⚙️</span> は単独ではアクションを実行できません。<strong>1つの道具は、1人の部族メンバー <span class="icon-display">👤</span> が実行する1つのアクションの能力を強化するために使用されます</strong>。カードがその基本的な能力を持っていない場合、道具を使ってその能力を得ることはできません。道具は既存の能力を強化するものです。例えば、<strong>難民</strong> <span class="icon-display">👤</span> に<strong>シャベル</strong> <span class="icon-display">⛏️</span> を組み合わせて「掘る」能力を強化したり、<strong>用心棒</strong> <span class="icon-display">👤</span> に<strong>槍</strong> <span class="icon-display">⚔️</span> を組み合わせて「戦闘」能力を高めたりします。</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">複数枚のカードでのアクション</h3>
+                                <p>複数のカードを組み合わせて1つのアクションを行うことで、そのアクションの効果を高めることができます（例：複数の「人」カードや「人」と「道具」の組み合わせ）。</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">アクションの重複制限</h3>
+                                <p>1ラウンド中に同じ種類のアクションを複数回行うことはできません。</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">使用済みカードの扱い</h3>
+                                <p>一度アクションに使用したカードは、そのラウンド中に再度別のアクションに使用することはできません。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">フェーズ3：小競り合いの詳細</h2>
+                    <p class="text-warm-secondary mb-4">小競り合いフェーズは、ゲームの直接的な対決の場です。ここでは勝敗の判定方法と、勝利したプレイヤーが何を得るかを詳しく説明します。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">勝敗の判定方法</h3>
+                        <p class="mb-2">全てのプレイヤーが小競り合いのために残しておいたカードを同時に表向きにします。</p>
+                        <ul class="list-disc list-inside space-y-2 mb-4">
+                            <li>
+                                各プレイヤーのカードの<strong class="text-accent-dark">「戦闘値 ⚔️」</strong>の合計が、そのプレイヤーの攻撃力を表します。道具カードは、特定の部族メンバーと組み合わせることで戦闘値を高めることができます。
+                            </li>
+                            <li>
+                                <strong class="text-accent-dark">最も高い戦闘値を持つプレイヤー</strong>が小競り合いに勝利します。
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mb-3">勝利したプレイヤーの行動</h3>
+                        <p class="mb-2">小競り合いに勝利したプレイヤーは、以下の行動を行います。</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                勝利したプレイヤーは、<strong>争奪資源デッキの一番上のカード</strong>を、他のプレイヤーに見せずに自分の捨て札置き場に加えます。
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mb-3">タイブレーク</h3>
+                        <p class="mb-2">戦闘値が同点の場合、以下の順で勝者を決定します。</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>タイブレーク1：</strong>小競り合いに参加した<strong>「人 👤」の総数</strong>（戦闘に直接貢献しない難民や部族家族も含む）が最も多いプレイヤーが勝利します。
+                            </li>
+                            <li>
+                                <strong>タイブレーク2：</strong>それでも同点の場合、それは<strong>「膠着状態（デッドロック）」</strong>と見なされます。争奪資源デッキの一番上のカードは、見ずにジャンクヤードデッキに置かれ、ジャンクヤードデッキがシャッフルされます。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">カードアイコンの説明</h2>
+                    <p class="text-warm-secondary mb-4">ゲーム中に登場する主なカードアイコンとその意味をまとめました。これらのアイコンは通常、カードの左側に表示されます（部族メンバーアイコンは右下隅）。アイコンを理解することで、カードの能力やゲームの進行をよりスムーズに把握できます。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">⛏️</strong> <strong>掘るアイコン (Dig Icon):</strong> 「掘る」アクションの能力を示します。このアイコンを持つカードをプレイすることで、ジャンクヤードからより多くのカードを引くことができます。</li>
+                            <li><strong class="icon-display">🏹</strong> <strong>狩るアイコン (Hunt Icon):</strong> 「狩る」アクションの能力を示します。このアイコンを持つカードをプレイすることで、傭兵を雇うための「食料」を生成できます。</li>
+                            <li><strong class="icon-display">⚔️</strong> <strong>戦闘アイコン (Fight Icon):</strong> 「戦闘」能力を示します。小競り合いフェーズで戦闘値を合計する際にこのアイコンの数値を使用します。</li>
+                            <li><strong class="icon-display">👤</strong> <strong>部族メンバーアイコン (Tribe Member Icon):</strong> 各カードの右下隅に表示され、そのカードが部族の一員であることを示します。ゲーム終了時の勝利条件である「部族の大きさ」を計算する際にこのアイコンの合計数を使用します。</li>
+                            <li><strong class="icon-display">🃏</strong> <strong>引くアイコン (Draw Icon):</strong> 「引く」アクションの能力を示します。このアイコンを持つカードをプレイすることで、山札からカードを手札に加えることができます。</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>道具アイコン (Tool Icon):</strong> 道具カードを示します。単独ではアクションを実行できませんが、部族メンバーと組み合わせてその能力を強化します。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">ゲームの勝利条件</h2>
+                    <p class="text-warm-secondary mb-4">「Arctic Scavengers」は、最後の「争奪資源カード」が獲得された時点で終了します。ゲームの勝利条件は、最終的に「最大の部族」を築くことです。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">勝者の決定</h3>
+                        <p class="mb-2">ゲーム終了時、各プレイヤーは自分のデッキ内にあるすべてのカードの「部族メンバーアイコン」の総数を数えます。最も多くの部族メンバーを持つプレイヤーが勝者となります。</p>
+                        <h3 class="text-xl font-semibold mb-3">タイブレーク</h3>
+                        <p class="mb-2">複数のタイブレーク条件があることで、プレイヤーはゲーム終盤に主要な勝利条件だけでなく、争奪資源の数やデッキの総カード数といった二次的な目標も考慮に入れる必要があります。</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>タイブレーク1：</strong>部族メンバーの数が同点の場合、同点のプレイヤーの中で最も多くの「争奪資源カード」を持っているプレイヤーが勝者となります。
+                            </li>
+                            <li>
+                                <strong>タイブレーク2：</strong>それでも同点の場合、同点のプレイヤーの中で最も多くの「カード総数」（デッキ内のすべてのカード）を持っているプレイヤーが勝者となります。
+                            </li>
+                            <li>
+                                <strong>タイブレーク3：</strong>それでも同点の場合、同点のプレイヤー全員が勝利を分かち合います。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+
+            <div class="lang-content hidden space-y-12" id="lang-en">
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Objective of the Game</h2>
+                    <p class="text-warm-secondary mb-4">This section explains the ultimate goal of the game and the fundamental concepts to achieve it. Understanding the path to victory is the first step in building your strategy.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <p class="text-lg">The ultimate goal is to build the <strong class="text-accent-dark">"largest tribe"</strong> by the end of the game. The size of your tribe is determined by the total number of <strong class="text-accent-dark">"tribe member icons <span class="icon-display">👤</span>"</strong> on all cards in your deck. Gather resources, hire powerful allies, and win skirmishes against rivals to lead your tribe to become the largest force.</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Game Setup</h2>
+                    <p class="text-warm-secondary mb-4">Here's how to prepare for the game. Understanding the initial cards each player receives and the shared card piles will help you start the game smoothly.</p>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3">Starter Deck (10 cards total)</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>Refugee</strong> <span class="icon-display">👤</span> <span class="block text-sm text-warm-secondary">x4</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>Scavenger</strong> <span class="icon-display">👤⛏️</span> <span class="block text-sm text-warm-secondary">x3</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>Brawler</strong> <span class="icon-display">👤🏹</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>Spear</strong> <span class="icon-display">⚔️</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>Shovel</strong> <span class="icon-display">⛏️</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="deckChartEN"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm mt-8">
+                        <h3 class="text-xl font-semibold mb-3">Sorting and Placing Other Cards</h3>
+                        <p class="mb-2">The remaining cards are sorted into three main piles:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>Contested Resources Deck:</strong> Contains valuable resources (e.g., ammunition, medicine, new recruits) won through skirmishes. Shuffle and place face-down on the Contested Resources mat.
+                            </li>
+                            <li>
+                                <strong>Junkyard Deck:</strong> Contains tools, junk, and other useful cards acquired by "Digging." Shuffle and place face-down on the Junkyard mat.
+                            </li>
+                            <li>
+                                <strong>Mercenary Decks:</strong> Contains powerful mercenary cards (8 types) that can be hired by paying food or medicine. Place each type face-up in the play area.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Card Types and Overview</h2>
+                    <p class="text-warm-secondary mb-4">This section describes the various types of cards in the game and their basic roles. It will help you understand how each card contributes to the game's progression.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">👤</strong> <strong>People Cards:</strong> These are the core cards of your tribe. They have a "Tribe Member Icon 👤" and can perform various actions (Dig, Hunt, Draw, etc.) or contribute fight value in skirmishes. They directly relate to your tribe size, which is the end-game victory condition. <strong class="text-accent-dark">Acquired from the Mercenary Decks.</strong> Examples: Refugee, Scavenger, Brawler, Mercenary.</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>Tool Cards:</strong> These cards are used to enhance the abilities of your tribe members. They have a "Tool Icon ⚙️" and cannot perform actions independently, but they amplify the effect of actions when combined with a person card. <strong class="text-accent-dark">Acquired from the Junkyard Deck.</strong> Examples: Spear, Shovel.</li>
+                            <li><strong class="icon-display">✊</strong> <strong>Contested Resource Cards:</strong> These are highly valuable cards that can only be acquired by winning skirmishes. They count as victory points at the end of the game and are crucial for tie-breaking.</li>
+                        </ul>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Game Flow</h2>
+                    <p class="text-warm-secondary mb-4">Each round proceeds in three phases. This section helps you visualize that flow. Grasp what you can do in each phase to plan your turns effectively. The game ends when the final "Contested Resource card" has been acquired.</p>
+                    <div class="flex flex-col md:flex-row justify-around text-center gap-4">
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">1</div>
+                            <h3 class="text-xl font-semibold mt-2">Draw Cards</h3>
+                            <p class="text-sm text-warm-secondary mt-1">Draw 5 cards from your deck</p>
+                        </div>
+                         <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">2</div>
+                            <h3 class="text-xl font-semibold mt-2">Gather Resources</h3>
+                             <p class="text-sm text-warm-secondary mt-1">Perform actions with your cards</p>
+                        </div>
+                         <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <h3 class="text-xl font-semibold mt-2">Skirmish</h3>
+                             <p class="text-sm text-warm-secondary mt-1">(From Round 3) Fight for resources</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Key Actions</h2>
+                    <p class="text-warm-secondary mb-4">In the "Gather Resources" phase (Phase 2), you perform various actions to strengthen your tribe. This section details each action. Knowing which action to take and when is the key to your strategy.</p>
+                    <div class="space-y-3 accordion-container">
+                        </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Notes on Playing Cards</h2>
+                    <p class="text-warm-secondary mb-4">This section explains general rules for playing cards and how to handle special card interactions. Understanding these notes will help you play the game more smoothly.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <h3 class="font-semibold mb-1">Using Tools (<span class="icon-display">⚙️</span>)</h3>
+                                <p>Tool cards <span class="icon-display">⚙️</span> do not work alone. <strong>A single tool can be used by one tribe member <span class="icon-display">👤</span> to enhance the ability of one action that tribe member is performing</strong>. A card cannot gain a new ability by using a tool if it does not inherently possess that base ability; tools only enhance existing capabilities. For example, combining a <strong>Refugee</strong> <span class="icon-display">👤</span> with a <strong>Shovel</strong> <span class="icon-display">⛏️</span> enhances their "Dig" ability, or a <strong>Brawler</strong> <span class="icon-display">👤</span> with a <strong>Spear</strong> <span class="icon-display">⚔️</span> enhances their "Fight" ability.</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">Actions with Multiple Cards</h3>
+                                <p>Playing multiple cards for a single action can increase its potency (e.g., combining multiple "person" cards or a "person" with a "tool").</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">Action Duplication Limit</h3>
+                                <p>A player may not perform the same type of action more than once in a round.</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">Used Card Handling</h3>
+                                <p>Once a card has been used to perform an action, it cannot be used for another action in that same round.</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Phase 3: Skirmish Details</h2>
+                    <p class="text-warm-secondary mb-4">The Skirmish Phase is where direct confrontations happen in the game. Here, we'll explain how victory is determined and what the winning player gains.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">Determining the Winner</h3>
+                        <p class="mb-2">Once all players have completed their resource gathering actions, they simultaneously reveal the cards they saved for the skirmish.</p>
+                        <ul class="list-disc list-inside space-y-2 mb-4">
+                            <li>
+                                The sum of the <strong>"fight values ⚔️"</strong> on a player's cards represents their attack strength. Tool cards can be combined with specific tribe members to increase fight values.
+                            </li>
+                            <li>
+                                The player with the <strong>highest fight value</strong> wins the skirmish.
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mb-3">Winner's Actions</h3>
+                        <p class="mb-2">The player who wins the skirmish takes the following action:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                The winning player takes the <strong>top card from the Contested Resources deck</strong> and adds it to their discard pile without revealing it to other players.
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mb-3">Tie-breaking</h3>
+                        <p class="mb-2">In the event of a tie in fight value, the winner is determined in the following order:</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>Tie-breaker 1:</strong> The tied player with the most <strong>total "people 👤"</strong> involved in the skirmish (including Refugees and Tribe Families, even if they don't directly contribute to the fight score) wins.
+                            </li>
+                            <li>
+                                <strong>Tie-breaker 2:</strong> If players are still tied, the skirmish is considered a <strong>"deadlock."</strong> In this case, the top card from the Contested Resources pile is placed into the Junkyard deck without looking at it, and the Junkyard deck is then shuffled.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Card Icon Explanations</h2>
+                    <p class="text-warm-secondary mb-4">Here's a summary of the main card icons you'll encounter in the game and their meanings. These icons usually appear on the left side of the card (the Tribe Member Icon is in the bottom right corner). Understanding these icons will help you grasp card abilities and game progression more smoothly.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">⛏️</strong> <strong>Dig Icon:</strong> Indicates the "Dig" action ability. Playing cards with this icon allows you to draw more cards from the Junkyard.</li>
+                            <li><strong class="icon-display">🏹</strong> <strong>Hunt Icon:</strong> Indicates the "Hunt" action ability. Playing cards with this icon allows you to generate "Food" for hiring mercenaries.</li>
+                            <li><strong class="icon-display">⚔️</strong> <strong>Fight Icon:</strong> Indicates combat ability. The numerical value of this icon is used when summing fight values during the Skirmish phase.</li>
+                            <li><strong class="icon-display">👤</strong> <strong>Tribe Member Icon:</strong> Located on the bottom right corner of each card, this icon indicates that the card represents a member of your tribe. The total count of these icons is used to calculate your "tribe size" for the game's end-of-game victory condition.</li>
+                            <li><strong class="icon-display">🃏</strong> <strong>Draw Icon:</strong> Indicates the "Draw" action ability. Playing cards with this icon allows you to draw more cards from your deck into your hand.</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>Tool Icon:</strong> Indicates a tool card. Tools cannot perform actions independently but are combined with tribe members to enhance their abilities.</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Winning the Game</h2>
+                    <p class="text-warm-secondary mb-4">"Arctic Scavengers" concludes when the final "Contested Resource card" has been won. The ultimate victory condition is to have built the largest tribe.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">Determining the Winner</h3>
+                        <p class="mb-2">At the end of the game, each player counts the total number of "tribe member icons" on all cards in their deck. The player with the largest tribe wins.</p>
+                        <h3 class="text-xl font-semibold mb-3">Tie-breaking</h3>
+                        <p class="mb-2">The existence of multiple tie-breaking conditions suggests that in the late game, players need to consider secondary objectives beyond just tribe size.</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>Tie-breaker 1:</strong> If there is a tie in tribe member count, the tied player with the most "Contested Resource cards" wins.
+                            </li>
+                            <li>
+                                <strong>Tie-breaker 2:</strong> If there is still a tie, the tied player with the largest total number of "cards" in their deck wins.
+                            </li>
+                            <li>
+                                <strong>Tie-breaker 3:</strong> If all conditions remain tied, all tied players share the victory.
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+            
+            <div class="lang-content hidden space-y-12" id="lang-cn">
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">游戏目标</h2>
+                    <p class="text-warm-secondary mb-4">本节说明游戏的最终目标和实现它的基本思路。了解通往胜利的道路是制定策略的第一步。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <p class="text-lg">游戏的最终目标是在游戏结束时建立<strong class="text-accent-dark">“最大的部落”</strong>。部落的大小取决于您牌库中所有卡牌右下角的<strong class="text-accent-dark">“部落成员图标 <span class="icon-display">👤</span>”</strong>的总数。收集资源，雇佣强大的盟友，并在与对手的小规模冲突中获胜，带领您的部落成为最强大的势力。</p>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">游戏准备</h2>
+                    <p class="text-warm-secondary mb-4">这里解释了开始游戏的准备工作。了解每位玩家最初收到的卡牌和共享的卡牌堆，将帮助您顺利开始游戏。</p>
+                    <div class="grid md:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <h3 class="text-xl font-semibold mb-3">起始牌库 (共10张)</h3>
+                            <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>难民</strong> <span class="icon-display">👤</span> <span class="block text-sm text-warm-secondary">x4</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>拾荒者</strong> <span class="icon-display">👤⛏️</span> <span class="block text-sm text-warm-secondary">x3</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>打手</strong> <span class="icon-display">👤🏹</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>长矛</strong> <span class="icon-display">⚔️</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                                <div class="bg-white p-3 rounded-md shadow-sm text-center"><strong>铲子</strong> <span class="icon-display">⛏️</span> <span class="block text-sm text-warm-secondary">x1</span></div>
+                            </div>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="deckChartCN"></canvas>
+                        </div>
+                    </div>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm mt-8">
+                        <h3 class="text-xl font-semibold mb-3">卡牌的分类与放置</h3>
+                        <p class="mb-2">剩余的卡牌被分为以下三类主要牌堆：</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>争夺资源牌库 (Contested Resources Deck):</strong> 包含通过小规模冲突胜利获得的宝贵资源（例如：弹药、药品、新兵）。洗匀后，面朝下放置在争夺资源垫上。
+                            </li>
+                            <li>
+                                <strong>垃圾场牌库 (Junkyard Deck):</strong> 包含工具、垃圾及通过“挖掘”行动获得的其他有用卡牌。洗匀后，面朝下放置在垃圾场垫上。
+                            </li>
+                            <li>
+                                <strong>雇佣兵牌库 (Mercenary Decks):</strong> 包含具有强大能力的雇佣兵卡牌（8种类型），玩家可以通过支付食物或药品来雇佣它们。每种类型面朝上放置在游戏区域。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌种类与概述</h2>
+                    <p class="text-warm-secondary mb-4">本节将介绍游戏中各种卡牌类型及其基本作用。这将有助于您理解每种卡牌如何影响游戏进程。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">👤</strong> <strong>人员卡牌 (People Cards):</strong> 这是您部落的核心卡牌。它们带有“部落成员图标 👤”，可以执行各种行动（挖掘、狩猎、抽牌等），或在小规模冲突中提供战斗力。它们直接关系到您的部落规模，这是游戏结束时的胜利条件。<strong class="text-accent-dark">从雇佣兵牌库中获取。</strong>例如：难民、拾荒者、打手、雇佣兵。</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>工具卡牌 (Tool Cards):</strong> 这些卡牌用于增强您的部落成员的能力。它们带有“工具图标 ⚙️”，不能单独执行行动，但与人员卡牌结合时可以增强行动效果。<strong class="text-accent-dark">从垃圾场牌库中获取。</strong>例如：长矛、铲子。</li>
+                            <li><strong class="icon-display">✊</strong> <strong>争夺资源卡牌 (Contested Resource Cards):</strong> 只能通过赢得小规模冲突获得的非常有价值的卡牌。它们在游戏结束时计为胜利点，在平局时也至关重要。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">游戏流程</h2>
+                    <p class="text-warm-secondary mb-4">每轮游戏都按三个阶段进行。本节帮助您直观地了解该流程。掌握每个阶段可以做什么，以便有效地规划您的回合。游戏在最后一张“争夺资源卡”被获得时结束。</p>
+                    <div class="flex flex-col md:flex-row justify-around text-center gap-4">
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">1</div>
+                            <h3 class="text-xl font-semibold mt-2">抽牌</h3>
+                            <p class="text-sm text-warm-secondary mt-1">从牌库抽5张牌</p>
+                        </div>
+                        <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">2</div>
+                            <h3 class="text-xl font-semibold mt-2">收集资源</h3>
+                            <p class="text-sm text-warm-secondary mt-1">用手牌执行行动</p>
+                        </div>
+                        <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
+                        <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
+                            <div class="text-2xl font-bold text-accent">3</div>
+                            <h3 class="text-xl font-semibold mt-2">小规模冲突</h3>
+                             <p class="text-sm text-warm-secondary mt-1">(第3轮开始) 争夺资源</p>
+                        </div>
+                    </div>
+                </section>
+                
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">主要行动</h2>
+                    <p class="text-warm-secondary mb-4">在“收集资源”阶段（阶段2），您执行各种行动来壮大您的部落。本节详细介绍每个行动。知道何时采取何种行动是您策略的关键。</p>
+                     <div class="space-y-3 accordion-container">
+                        </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌使用注意事项</h2>
+                    <p class="text-warm-secondary mb-4">本节解释卡牌使用的通用规则和特殊卡牌的处理方式。了解这些注意事项将有助于您更顺利地进行游戏。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <h3 class="font-semibold mb-1">使用工具 (<span class="icon-display">⚙️</span>)</h3>
+                                <p>工具卡 <span class="icon-display">⚙️</span> 不能单独执行行动。<strong>一个工具只能由一个部落成员 <span class="icon-display">👤</span> 使用，以增强该部落成员正在执行的一个行动的能力</strong>。如果一张卡牌不具备其基本能力，则不能通过使用工具来获得该能力；工具只能增强现有能力。例如，将<strong>难民</strong> <span class="icon-display">👤</span> 与<strong>铲子</strong> <span class="icon-display">⛏️</span> 结合可以增强他们的“挖掘”能力，或者将<strong>打手</strong> <span class="icon-display">👤</span> 与<strong>长矛</strong> <span class="icon-display">⚔️</span> 结合可以提高他们的“战斗”能力。</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">多张卡牌的行动</h3>
+                                <p>打出多张卡牌执行一个行动可以增强其效果（例如，组合多张“人口”卡牌或一张“人口”卡牌与一张“工具”卡牌）。</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">行动重复限制</h3>
+                                <p>在同一轮中，玩家不能多次执行相同类型的行动。</p>
+                            </li>
+                            <li>
+                                <h3 class="font-semibold mb-1">已用卡牌的处理</h3>
+                                <p>一旦一张卡牌被用于执行行动，该轮中就不能再用于其他行动。</p>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">阶段3：小规模冲突详情</h2>
+                    <p class="text-warm-secondary mb-4">小规模冲突阶段是游戏中直接对抗的场所。在这里，我们将详细解释如何确定胜负以及获胜玩家将获得什么。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">胜负判定方法</h3>
+                        <p class="mb-2">一旦所有玩家都完成了资源收集行动，他们将同时揭示为小规模冲突保留的卡牌。</p>
+                        <ul class="list-disc list-inside space-y-2 mb-4">
+                            <li>
+                                玩家卡牌上<strong>“战斗值 ⚔️”</strong>的总和代表其攻击强度。工具卡牌可以与特定的部落成员结合，以增加战斗值。
+                            </li>
+                            <li>
+                                <strong>战斗值最高的玩家</strong>赢得小规模冲突。
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mb-3">获胜玩家的行动</h3>
+                        <p class="mb-2">赢得小规模冲突的玩家将执行以下行动：</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                获胜玩家将<strong>争夺资源牌库顶部的卡牌</strong>，不向其他玩家展示，将其添加到自己的弃牌堆中。
+                            </li>
+                        </ul>
+                        <h3 class="text-xl font-semibold mb-3">平局处理</h3>
+                        <p class="mb-2">如果战斗值相同，则按以下顺序确定获胜者：</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>平局处理1：</strong>小规模冲突中参与的<strong>“人口 👤”总数</strong>（包括难民和部落家庭，即使它们不直接贡献战斗分数）最多的玩家获胜。
+                            </li>
+                            <li>
+                                <strong>平局处理2：</strong>如果仍然平局，则该小规模冲突被视为<strong>“僵局”</strong>。在这种情况下，争夺资源牌堆顶部的卡牌将被放置到垃圾场牌库中，不查看，然后垃圾场牌库将被洗匀。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌图标说明</h2>
+                    <p class="text-warm-secondary mb-4">这里总结了游戏中主要卡牌图标及其含义。这些图标通常显示在卡牌的左侧（部落成员图标位于右下角）。理解这些图标将帮助您更顺利地掌握卡牌能力和游戏进程。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">⛏️</strong> <strong>挖掘图标 (Dig Icon):</strong> 表示“挖掘”行动的能力。打出具有此图标的卡牌可以从垃圾场抽取更多卡牌。</li>
+                            <li><strong class="icon-display">🏹</strong> <strong>狩猎图标 (Hunt Icon):</strong> 表示“狩猎”行动的能力。打出具有此图标的卡牌可以产生用于雇佣雇佣兵的“食物”。</li>
+                            <li><strong class="icon-display">⚔️</strong> <strong>战斗图标 (Fight Icon):</strong> 表示战斗能力。在小规模冲突阶段计算战斗值时，将使用此图标的数值。</li>
+                            <li><strong class="icon-display">👤</strong> <strong>部落成员图标 (Tribe Member Icon):</strong> 位于每张卡牌的右下角，表示该卡牌是您部落的一员。游戏结束时计算“部落大小”这一胜利条件时，将使用这些图标的总数。</li>
+                            <li><strong class="icon-display">🃏</strong> <strong>抽牌图标 (Draw Icon):</strong> 表示“抽牌”行动的能力。打出具有此图标的卡牌可以从牌库中抽取更多卡牌加入手牌。</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>工具图标 (Tool Icon):</strong> 表示工具卡牌。工具不能单独执行行动，但与部落成员结合时可以增强其能力。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">游戏胜利条件</h2>
+                    <p class="text-warm-secondary mb-4">《北极拾荒者》在最后一张“争夺资源卡”被获得时结束。最终的胜利条件是建立最大的部落。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">胜者的决定</h3>
+                        <p class="mb-2">游戏结束时，每个玩家计算其牌库中所有卡牌上“部落成员图标”的总数。拥有最多部落成员的玩家获胜。</p>
+                        <h3 class="text-xl font-semibold mb-3">平局处理</h3>
+                        <p class="mb-2">多个平局条件的存在，意味着玩家在游戏后期不仅需要考虑部落规模这一主要胜利条件，还需要考虑争夺资源数量或牌库总卡牌数量等次要目标。</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li>
+                                <strong>平局处理1：</strong>如果部落成员数量平局，则平局玩家中拥有最多“争夺资源卡”的玩家获胜。
+                            </li>
+                            <li>
+                                <strong>平局处理2：</strong>如果仍然平局，则平局玩家中牌库中“卡牌总数”最多的玩家获胜。
+                            </li>
+                            <li>
+                                <strong>平局处理3：</strong>如果所有条件仍然平局，则所有平局玩家共享胜利。
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const langButtons = document.querySelectorAll('.lang-btn');
+            const langContents = document.querySelectorAll('.lang-content');
+
+            function switchLang(lang) {
+                langContents.forEach(content => {
+                    const parentSection = content.closest('.lang-content.space-y-12');
+                    if (parentSection) {
+                        if (parentSection.id === `lang-${lang}`) {
+                            parentSection.classList.remove('hidden');
+                        } else {
+                            parentSection.classList.add('hidden');
+                        }
+                    } else {
+                         if (content.id === `lang-${lang}`) {
+                            content.classList.remove('hidden');
+                        } else {
+                            content.classList.add('hidden');
+                        }
+                    }
+                });
+
+                langButtons.forEach(btn => {
+                    btn.classList.remove('active-lang');
+                    if (btn.dataset.lang === lang) {
+                        btn.classList.add('active-lang');
+                    }
+                });
+            }
+
+            langButtons.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    switchLang(btn.dataset.lang);
+                });
+            });
+
+            const accordionData = {
+                jp: [
+                    { 
+                        title: '掘る (Dig) - フェーズ2：資源を集める', 
+                        content: 'ジャンクヤードからカードを引き、1枚を選んで獲得します。デッキに新しい道具や人材を加える基本アクションです。例えば、<strong>スカベンジャー</strong>（「掘る」能力 <span class="icon-display">⛏️</span> を持つ人物カード）や<strong>シャベル</strong>（「掘る」能力 <span class="icon-display">⛏️</span> を強化する道具カード）をプレイすることで、より多くのカードを引くことができます。' 
+                    },
+                    { 
+                        title: '狩る (Hunt) - フェーズ2：資源を集める', 
+                        content: '強力な傭兵を雇うために必要な「食料 <span class="icon-display">🍖</span>」を生成します。食料はそのラウンド中のみ有効です。例えば、<strong>用心棒</strong>（「狩る」能力 <span class="icon-display">🏹</span> を持つ人物カード）をプレイすることで食料を生成できます。' 
+                    },
+                    { 
+                        title: '雇う (Hire) - フェーズ2：資源を集める (フリーアクション)', 
+                        content: '食料 <span class="icon-display">🍖</span> や医薬品 <span class="icon-display">💊</span> を支払って、強力な能力を持つ「傭兵」を1ラウンドに1人まで雇います。傭兵は表向きに置かれているカードから選びます。' 
+                    },
+                    { 
+                        title: '引く (Draw) - フェーズ2：資源を集める', 
+                        content: '自分の山札からカードを引き、手札を増やします。アクションの選択肢を広げる重要な手段です。例えば、特定の<strong>人物カード</strong>が「引く」能力を持っています。' 
+                    },
+                    { 
+                        title: '捨てる (Trash) - フェーズ2：資源を集める (フリーアクション)', 
+                        content: '手札の不要なカード（例：初期デッキの<strong>難民</strong> <span class="icon-display">👤</span> や<strong>ジャンクカード</strong>）をゲームから取り除き、デッキを効率化（圧縮）します。捨てても新しいカードは引けません。' 
+                    }
+                ],
+                en: [
+                    { 
+                        title: 'Dig - Phase 2: Gather Resources', 
+                        content: 'Draw cards from the Junkyard and choose one to keep. A basic action to add new tools and people to your deck. For example, playing a <strong>Scavenger</strong> (a person card with "Dig" ability <span class="icon-display">⛏️</span>) or a <strong>Shovel</strong> (a tool card that enhances "Dig" ability <span class="icon-display">⛏️</span>) allows you to draw more cards.' 
+                    },
+                    { 
+                        title: 'Hunt - Phase 2: Gather Resources', 
+                        content: 'Generate "food <span class="icon-display">🍖</span>," which is needed to hire powerful mercenaries. Food is only valid for the current round. For example, playing a <strong>Brawler</strong> (a person card with "Hunt" ability <span class="icon-display">🏹</span>) allows you to generate food.' 
+                    },
+                    { 
+                        title: 'Hire - Phase 2: Gather Resources (Free Action)', 
+                        content: 'Pay food <span class="icon-display">🍖</span> or medicine <span class="icon-display">💊</span> to hire one "mercenary" with powerful abilities per round. Mercenaries are chosen from the face-up piles.' 
+                    },
+                    { 
+                        title: 'Draw - Phase 2: Gather Resources', 
+                        content: 'Draw cards from your deck to increase your hand size, expanding your options. For example, certain <strong>person cards</strong> might have a "Draw" ability.' 
+                    },
+                    { 
+                        title: 'Trash - Phase 2: Gather Resources (Free Action)', 
+                        content: 'Remove unwanted cards (e.g., starter deck <strong>Refugees</strong> <span class="icon-display">👤</span> or <strong>Junk cards</strong>) from the game to make your deck more efficient (deck thinning). You do not draw replacement cards for those trashed.' 
+                    }
+                ],
+                cn: [
+                    { 
+                        title: '挖掘 (Dig) - 阶段2：收集资源', 
+                        content: '从垃圾场抽牌，选择一张获得。这是向牌库添加新工具和人员的基本行动。例如，打出<strong>拾荒者</strong>（具有“挖掘”能力 <span class="icon-display">⛏️</span> 的人员卡牌）或<strong>铲子</strong>（增强“挖掘”能力 <span class="icon-display">⛏️</span> 的工具卡牌）可以抽取更多卡牌。' 
+                    },
+                    { 
+                        title: '狩猎 (Hunt) - 阶段2：收集资源', 
+                        content: '产生雇佣强大雇佣兵所需的“食物”。食物仅在当前回合有效。例如，打出<strong>打手</strong>（具有“狩猎”能力 <span class="icon-display">🏹</span> 的人员卡牌）可以产生食物。' 
+                    },
+                    { 
+                        title: '雇佣 (Hire) - 阶段2：收集资源 (自由行动)', 
+                        content: '支付食物或药品，每轮最多可雇佣一名具有强大能力的“雇佣兵”。雇佣兵从面朝上放置的牌堆中选择。' 
+                    },
+                    { 
+                        title: '抽牌 (Draw) - 阶段2：收集资源', 
+                        content: '从自己的牌库中抽取一张或多张卡牌加入手牌。例如，某些<strong>人员卡牌</strong>可能具有“抽牌”能力。' 
+                    },
+                    { 
+                        title: '废弃 (Trash) - 阶段2：收集资源 (自由行动)', 
+                        content: '从游戏中移除不需要的卡牌（例如：起始牌库的<strong>难民</strong> <span class="icon-display">👤</span> 或<strong>垃圾卡牌</strong>），以提高您的牌库效率（牌库精简）。废弃卡牌不会获得替代卡牌。' 
+                    }
+                ]
+            };
+            
+            function createAccordionItem(title, content) {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'bg-white/60 rounded-lg shadow-sm';
+
+                const header = document.createElement('button');
+                header.className = 'accordion-header w-full flex justify-between items-center p-4 text-left font-semibold focus:outline-none';
+                header.innerHTML = `<span>${title}</span><span class="transform transition-transform duration-300 text-accent text-2xl">+</span>`;
+
+                const contentDiv = document.createElement('div');
+                contentDiv.className = 'accordion-content';
+                contentDiv.innerHTML = `<div class="p-4 pt-0 text-warm-secondary">${content}</div>`;
+
+                itemDiv.appendChild(header);
+                itemDiv.appendChild(contentDiv);
+
+                header.addEventListener('click', () => {
+                    const isOpen = contentDiv.classList.contains('open');
+                    document.querySelectorAll('.accordion-content.open').forEach(el => {
+                        el.classList.remove('open');
+                        el.previousElementSibling.querySelector('span:last-child').textContent = '+';
+                        el.previousElementSibling.querySelector('span:last-child').classList.add('rotate-0');
+                    });
+
+                    if (!isOpen) {
+                        contentDiv.classList.add('open');
+                        header.querySelector('span:last-child').textContent = '-';
+                    } else {
+                         header.querySelector('span:last-child').textContent = '+';
+                    }
+                });
+                return itemDiv;
+            }
+
+            document.querySelectorAll('.accordion-container').forEach(container => {
+                const lang = container.closest('.lang-content').id.split('-')[1];
+                container.innerHTML = ''; // Clear existing content to prevent duplicates on language switch
+                accordionData[lang].forEach(item => {
+                    container.appendChild(createAccordionItem(item.title, item.content));
+                });
+            });
+
+            // Chart configuration with original warm-neutral palette
+            const chartData = {
+                labels: ['难民 (Refugee)', '拾荒者 (Scavenger)', '打手 (Brawler)', '长矛 (Spear)', '铲子 (Shovel)'],
+                datasets: [{
+                    data: [4, 3, 1, 1, 1],
+                    backgroundColor: ['#BDB5AA', '#A08C7D', '#706C61', '#CBBFAC', '#E2DACE'], 
+                    borderColor: '#FDFBF6',
+                    borderWidth: 2,
+                }]
+            };
+
+             const chartOptions = (titleText) => ({
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'bottom',
+                        labels: {
+                            color: '#706C61',
+                            font: { size: 12, family: "'Inter', 'Noto Sans JP', 'Noto Sans SC', sans-serif" }
+                        }
+                    },
+                    title: {
+                        display: true,
+                        text: titleText,
+                        color: '#3A3A3A',
+                        font: { size: 16, family: "'Inter', 'Noto Sans JP', 'Noto Sans SC', sans-serif", weight: 'bold' }
+                    }
+                }
+            });
+
+            new Chart(document.getElementById('deckChartJP'), { type: 'doughnut', data: chartData, options: chartOptions('初期デッキ構成比') });
+            new Chart(document.getElementById('deckChartEN'), { type: 'doughnut', data: chartData, options: chartOptions('Starter Deck Composition') });
+            new Chart(document.getElementById('deckChartCN'), { type: 'doughnut', data: chartData, options: chartOptions('起始牌库构成') });
+        });
+    </script>
+</body>
+</html>
