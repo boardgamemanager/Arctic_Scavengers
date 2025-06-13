@@ -76,7 +76,7 @@
                     <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">ゲームの目的</h2>
                     <p class="text-warm-secondary mb-4">このセクションでは、ゲームの最終的な目標と、それを達成するための基本的な考え方を説明します。勝利への道筋を理解することが、戦略を立てる第一歩です。</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
-                        <p class="text-lg">ゲームの最終目的は、ゲーム終了時に<strong class="text-accent-dark">「最も大きな部族」</strong>を築くことです。部族の大きさは、自分のデッキに含まれる全カードの右下に描かれた<strong class="text-accent-dark">「部族メンバーアイコン <span class="icon-display">👤</span>」</strong>の合計数で決まります。資源を集め、強力な仲間を雇い、ライバルとの小競り合いに勝利して、あなたの部族を最大勢力へと導きましょう。</p>
+                        <p class="text-lg">ゲームの最終目的は、ゲーム終了時に<strong class="text-accent-dark">「最も大きな部族」</strong>を築くことです。部族(デッキ)の大きさは、自分のデッキに含まれる全カードの右下に描かれた<strong class="text-accent-dark">「部族メンバーアイコン <span class="icon-display">👤</span>」</strong>の合計数で決まります。資源を集め、強力な仲間を雇い、ライバルとの小競り合いに勝利して、あなたの部族(デッキ)を最大勢力へと導きましょう。</p>
                     </div>
                 </section>
 
@@ -116,11 +116,30 @@
                 </section>
 
                 <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">自分のゲームフィールド</h2>
+                    <p class="text-warm-secondary mb-4">このセクションでは、各プレイヤーの個人用ゲームエリアについて説明します。各エリアの役割を理解することで、カードの流れと戦略を把握できます。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-semibold mb-1">山札 (Deck)</h3>
+                            <p>あなたの未発見の冒険と潜在能力が眠る場所です。ゲーム開始時には初期デッキのカードがシャッフルされて裏向きに置かれ、各ラウンドの開始時に手札を補充するためにここからカードを引きます。</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">手札 (Hand)</h3>
+                            <p>現在のアクションに使用できるカードのセットです。各ラウンドの開始時に山札からカードを引き、手札を補充します。手札のカードは、資源の収集、小競り合い、傭兵の雇い入れなど、様々なアクションに利用されます。</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">捨て札置き場 (Discard Pile)</h3>
+                            <p>使用済みまたは獲得したカードが置かれる場所です。アクションに使用されたカード、またはジャンクヤードや争奪資源デッキから獲得されたカードは、最終的にここに置かれます。山札がなくなった場合、捨て札置き場がシャッフルされ、新たな山札となります。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
                     <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">カードの種類と概要</h2>
                     <p class="text-warm-secondary mb-4">ゲーム中に登場する様々なカードの種類とその基本的な役割を説明します。各カードがゲームの進行にどう影響するかを理解する上で役立ちます。</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
                         <ul class="list-disc list-inside space-y-2">
-                            <li><strong class="icon-display">👤</strong> <strong>人物カード (People Cards):</strong> あなたの部族の核となるカードです。「部族メンバーアイコン 👤」を持ち、様々なアクション（掘る、狩る、引くなど）を実行したり、小競り合いで戦闘能力を発揮したりします。ゲーム終了時の勝利条件である部族の大きさに直結します。<strong class="text-accent-dark">傭兵デッキから入手します。</strong>例: 難民、スカベンジャー、用心棒、傭兵。</li>
+                            <li><strong class="icon-display">👤</strong> <strong>人物カード (People Cards):</strong> あなたの部族の核となるカードです。「部族メンバーアイコン 👤」を持ち、様々なアクション（掘る、狩る、引くなど）を実行したり、小競り合いで戦闘能力を発揮したりします。ゲーム終了時の勝利条件である部族(デッキ)の大きさに直結します。<strong class="text-accent-dark">傭兵デッキから入手します。</strong>例: 難民、スカベンジャー、用心棒、傭兵。</li>
                             <li><strong class="icon-display">⚙️</strong> <strong>道具カード (Tool Cards):</strong> あなたの部族メンバーの能力を強化するためのカードです。「道具アイコン ⚙️」を持ち、単独ではアクションを実行できませんが、人物カードと組み合わせてそのアクションの効果を増大させます。<strong class="text-accent-dark">ジャンクヤードデッキから入手します。</strong>例: 槍、シャベル。</li>
                             <li><strong class="icon-display">✊</strong> <strong>争奪資源カード (Contested Resource Cards):</strong> 小競り合いの勝利によってのみ獲得できる非常に価値の高いカードです。ゲーム終了時に勝利点としてカウントされ、タイブレーク条件としても重要になります。</li>
                         </ul>
@@ -152,8 +171,8 @@
                 </section>
                 
                 <section>
-                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">主なアクション</h2>
-                    <p class="text-warm-secondary mb-4">「資源を集める」フェーズ（フェーズ2）では、様々なアクションを実行して部族を強化します。ここでは各アクションの詳細を解説します。どのアクションをいつ実行するかが、戦略の鍵を握ります。</p>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">フェーズ2中に行えるアクション</h2>
+                    <p class="text-warm-secondary mb-4">「資源を集める」フェーズ（フェーズ2）では、様々なアクションを実行して部族(デッキ)を強化します。ここでは各アクションの詳細を解説します。どのアクションをいつ実行するかが、戦略の鍵を握ります。各アクションは1ラウンド中に<strong>最大1回</strong>ずつしか行えないことに注意してください。</p>
                     <div class="space-y-3 accordion-container">
                         </div>
                 </section>
@@ -300,6 +319,25 @@
                 </section>
 
                 <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Your Game Field</h2>
+                    <p class="text-warm-secondary mb-4">This section explains each player's personal game area. Understanding the role of each area will help you grasp the flow of cards and your strategy.</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-semibold mb-1">Deck</h3>
+                            <p>This is where your undiscovered adventures and potential lie. At the start of the game, your initial deck cards are shuffled and placed face-down here. You draw cards from here to refill your hand at the beginning of each round.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Hand</h3>
+                            <p>The set of cards currently available for your actions. At the start of each round, you draw cards from your deck to replenish your hand. Cards in your hand are used for various actions, such as gathering resources, skirmishing, and hiring mercenaries.</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">Discard Pile</h3>
+                            <p>This is where used or acquired cards are placed. Cards used for actions, or cards acquired from the Junkyard or Contested Resources deck, eventually go here. When your deck runs out, your discard pile is shuffled to form a new deck.</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
                     <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Card Types and Overview</h2>
                     <p class="text-warm-secondary mb-4">This section describes the various types of cards in the game and their basic roles. It will help you understand how each card contributes to the game's progression.</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
@@ -335,8 +373,8 @@
                 </section>
                 
                 <section>
-                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Key Actions</h2>
-                    <p class="text-warm-secondary mb-4">In the "Gather Resources" phase (Phase 2), you perform various actions to strengthen your tribe. This section details each action. Knowing which action to take and when is the key to your strategy.</p>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">Actions Performed During Phase 2</h2>
+                    <p class="text-warm-secondary mb-4">In the "Gather Resources" phase (Phase 2), you perform various actions to strengthen your tribe. This section details each action. Knowing which action to take and when is the key to your strategy. Note that each action can only be performed **up to once** per round.</p>
                     <div class="space-y-3 accordion-container">
                         </div>
                 </section>
@@ -483,6 +521,25 @@
                 </section>
 
                 <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">您的游戏区域</h2>
+                    <p class="text-warm-secondary mb-4">本节将解释每位玩家的个人游戏区域。了解每个区域的作用将帮助您掌握卡牌的流动和您的策略。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm space-y-4">
+                        <div>
+                            <h3 class="font-semibold mb-1">牌库 (Deck)</h3>
+                            <p>这里是您未被发现的冒险和潜在能力所在之处。游戏开始时，您的起始牌库卡牌会在这里洗匀并面朝下放置。每轮开始时，您将从这里抽牌来补充手牌。</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">手牌 (Hand)</h3>
+                            <p>当前可用于您行动的卡牌集合。每轮开始时，您将从牌库中抽牌来补充手牌。手牌中的卡牌可用于各种行动，例如收集资源、进行小规模冲突和雇佣雇佣兵。</p>
+                        </div>
+                        <div>
+                            <h3 class="font-semibold mb-1">弃牌堆 (Discard Pile)</h3>
+                            <p>这是已使用或已获得的卡牌放置的地方。用于行动的卡牌，或从垃圾场或争夺资源牌库中获得的卡牌，最终都会进入这里。当您的牌库用尽时，您的弃牌堆将被洗匀形成新的牌库。</p>
+                        </div>
+                    </div>
+                </section>
+
+                <section>
                     <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌种类与概述</h2>
                     <p class="text-warm-secondary mb-4">本节将介绍游戏中各种卡牌类型及其基本作用。这将有助于您理解每种卡牌如何影响游戏进程。</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
@@ -511,7 +568,6 @@
                         </div>
                         <div class="flex items-center justify-center text-2xl font-bold text-warm-secondary md:rotate-0 rotate-90">&rarr;</div>
                         <div class="flex-1 p-4 bg-white/50 rounded-lg shadow-sm">
-                            <div class="text-2xl font-bold text-accent">3</div>
                             <h3 class="text-xl font-semibold mt-2">小规模冲突</h3>
                              <p class="text-sm text-warm-secondary mt-1">(第3轮开始) 争夺资源</p>
                         </div>
@@ -519,103 +575,103 @@
                 </section>
                 
                 <section>
-                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">主要行动</h2>
-                    <p class="text-warm-secondary mb-4">在“收集资源”阶段（阶段2），您执行各种行动来壮大您的部落。本节详细介绍每个行动。知道何时采取何种行动是您策略的关键。</p>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">阶段2中可执行的行动</h2>
+                    <p class="text-warm-secondary mb-4">在“收集资源”阶段（阶段2），您执行各种行动来壮大您的部落。本节详细介绍每个行动。知道何时采取何种行动是您策略的关键。请注意，每轮每种行动最多只能执行<strong>一次</strong>。</p>
                      <div class="space-y-3 accordion-container">
                         </div>
                 </section>
 
                 <section>
                     <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌使用注意事项</h2>
-                    <p class="text-warm-secondary mb-4">本节解释卡牌使用的通用规则和特殊卡牌的处理方式。了解这些注意事项将有助于您更顺利地进行游戏。</p>
+                    <p class="text-warm-secondary mb-4">本節解釋卡牌使用的通用規則和特殊卡牌的處理方式。了解這些注意事項將有助於您更順利地進行遊戲。</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
                         <ul class="list-disc list-inside space-y-2">
                             <li>
                                 <h3 class="font-semibold mb-1">使用工具 (<span class="icon-display">⚙️</span>)</h3>
-                                <p>工具卡 <span class="icon-display">⚙️</span> 不能单独执行行动。<strong>一个工具只能由一个部落成员 <span class="icon-display">👤</span> 使用，以增强该部落成员正在执行的一个行动的能力</strong>。如果一张卡牌不具备其基本能力，则不能通过使用工具来获得该能力；工具只能增强现有能力。例如，将<strong>难民</strong> <span class="icon-display">👤</span> 与<strong>铲子</strong> <span class="icon-display">⛏️</span> 结合可以增强他们的“挖掘”能力，或者将<strong>打手</strong> <span class="icon-display">👤</span> 与<strong>长矛</strong> <span class="icon-display">⚔️</span> 结合可以提高他们的“战斗”能力。</p>
+                                <p>工具卡 <span class="icon-display">⚙️</span> 不能單獨執行行動。<strong>一個工具只能由一個部落成員 <span class="icon-display">👤</span> 使用，以增強該部落成員正在執行的一個行動的能力</strong>。如果一張卡牌不具備其基本能力，則不能通過使用工具來獲得該能力；工具只能增強現有能力。例如，將<strong>難民</strong> <span class="icon-display">👤</span> 與<strong>鏟子</strong> <span class="icon-display">⛏️</span> 結合可以增強他們的“挖掘”能力，或者將<strong>打手</strong> <span class="icon-display">👤</span> 與<strong>長矛</strong> <span class="icon-display">⚔️</span> 結合可以提高他們的“戰鬥”能力。</p>
                             </li>
                             <li>
-                                <h3 class="font-semibold mb-1">多张卡牌的行动</h3>
-                                <p>打出多张卡牌执行一个行动可以增强其效果（例如，组合多张“人口”卡牌或一张“人口”卡牌与一张“工具”卡牌）。</p>
+                                <h3 class="font-semibold mb-1">多張卡牌的行動</h3>
+                                <p>打出多張卡牌執行一個行動可以增強其效果（例如，組合多張“人口”卡牌或一張“人口”卡牌與一張“工具”卡牌）。</p>
                             </li>
                             <li>
-                                <h3 class="font-semibold mb-1">行动重复限制</h3>
-                                <p>在同一轮中，玩家不能多次执行相同类型的行动。</p>
+                                <h3 class="font-semibold mb-1">行動重複限制</h3>
+                                <p>在同一輪中，玩家不能多次執行相同類型的行動。</p>
                             </li>
                             <li>
-                                <h3 class="font-semibold mb-1">已用卡牌的处理</h3>
-                                <p>一旦一张卡牌被用于执行行动，该轮中就不能再用于其他行动。</p>
+                                <h3 class="font-semibold mb-1">已用卡牌的處理</h3>
+                                <p>一旦一張卡牌被用於執行行動，該輪中就不能再用於其他行動。</p>
                             </li>
                         </ul>
                     </div>
                 </section>
 
                 <section>
-                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">阶段3：小规模冲突详情</h2>
-                    <p class="text-warm-secondary mb-4">小规模冲突阶段是游戏中直接对抗的场所。在这里，我们将详细解释如何确定胜负以及获胜玩家将获得什么。</p>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">階段3：小規模衝突詳情</h2>
+                    <p class="text-warm-secondary mb-4">小規模衝突階段是遊戲中直接對抗的場所。在這裡，我們將詳細解釋如何確定勝負以及獲勝玩家將獲得什麼。</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-semibold mb-3">胜负判定方法</h3>
-                        <p class="mb-2">一旦所有玩家都完成了资源收集行动，他们将同时揭示为小规模冲突保留的卡牌。</p>
+                        <h3 class="text-xl font-semibold mb-3">勝負判定方法</h3>
+                        <p class="mb-2">一旦所有玩家都完成了資源收集行動，他們將同時揭示為小規模衝突保留的卡牌。</p>
                         <ul class="list-disc list-inside space-y-2 mb-4">
                             <li>
-                                玩家卡牌上<strong>“战斗值 ⚔️”</strong>的总和代表其攻击强度。工具卡牌可以与特定的部落成员结合，以增加战斗值。
+                                玩家卡牌上<strong>“戰鬥值 ⚔️”</strong>的總和代表其攻擊強度。工具卡牌可以與特定的部落成員結合，以增加戰鬥值。
                             </li>
                             <li>
-                                <strong>战斗值最高的玩家</strong>赢得小规模冲突。
+                                <strong>戰鬥值最高的玩家</strong>贏得小規模衝突。
                             </li>
                         </ul>
-                        <h3 class="text-xl font-semibold mb-3">获胜玩家的行动</h3>
-                        <p class="mb-2">赢得小规模冲突的玩家将执行以下行动：</p>
+                        <h3 class="text-xl font-semibold mb-3">獲勝玩家的行動</h3>
+                        <p class="mb-2">贏得小規模衝突的玩家將執行以下行動：</p>
                         <ul class="list-disc list-inside space-y-2">
                             <li>
-                                获胜玩家将<strong>争夺资源牌库顶部的卡牌</strong>，不向其他玩家展示，将其添加到自己的弃牌堆中。
+                                獲勝玩家將<strong>爭奪資源牌庫頂部的卡牌</strong>，不向其他玩家展示，將其添加到自己的棄牌堆中。
                             </li>
                         </ul>
-                        <h3 class="text-xl font-semibold mb-3">平局处理</h3>
-                        <p class="mb-2">如果战斗值相同，则按以下顺序确定获胜者：</p>
+                        <h3 class="text-xl font-semibold mb-3">平局處理</h3>
+                        <p class="mb-2">如果戰鬥值相同，則按以下順序確定獲勝者：</p>
                         <ul class="list-disc list-inside space-y-2">
                             <li>
-                                <strong>平局处理1：</strong>小规模冲突中参与的<strong>“人口 👤”总数</strong>（包括难民和部落家庭，即使它们不直接贡献战斗分数）最多的玩家获胜。
+                                <strong>平局處理1：</strong>小規模衝突中參與的<strong>“人口 👤”總數</strong>（包括難民和部落家庭，即使它們不直接貢獻戰鬥分數）最多的玩家獲勝。
                             </li>
                             <li>
-                                <strong>平局处理2：</strong>如果仍然平局，则该小规模冲突被视为<strong>“僵局”</strong>。在这种情况下，争夺资源牌堆顶部的卡牌将被放置到垃圾场牌库中，不查看，然后垃圾场牌库将被洗匀。
+                                <strong>平局處理2：</strong>如果仍然平局，則該小規模衝突被視為<strong>“僵局”</strong>。在這種情況下，爭奪資源牌堆頂部的卡牌將被放置到垃圾場牌庫中，不查看，然後垃圾場牌庫將被洗勻。
                             </li>
-                        </ul>
-                    </div>
-                </section>
-
-                <section>
-                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌图标说明</h2>
-                    <p class="text-warm-secondary mb-4">这里总结了游戏中主要卡牌图标及其含义。这些图标通常显示在卡牌的左侧（部落成员图标位于右下角）。理解这些图标将帮助您更顺利地掌握卡牌能力和游戏进程。</p>
-                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
-                        <ul class="list-disc list-inside space-y-2">
-                            <li><strong class="icon-display">⛏️</strong> <strong>挖掘图标 (Dig Icon):</strong> 表示“挖掘”行动的能力。打出具有此图标的卡牌可以从垃圾场抽取更多卡牌。</li>
-                            <li><strong class="icon-display">🏹</strong> <strong>狩猎图标 (Hunt Icon):</strong> 表示“狩猎”行动的能力。打出具有此图标的卡牌可以产生用于雇佣雇佣兵的“食物”。</li>
-                            <li><strong class="icon-display">⚔️</strong> <strong>战斗图标 (Fight Icon):</strong> 表示战斗能力。在小规模冲突阶段计算战斗值时，将使用此图标的数值。</li>
-                            <li><strong class="icon-display">👤</strong> <strong>部落成员图标 (Tribe Member Icon):</strong> 位于每张卡牌的右下角，表示该卡牌是您部落的一员。游戏结束时计算“部落大小”这一胜利条件时，将使用这些图标的总数。</li>
-                            <li><strong class="icon-display">🃏</strong> <strong>抽牌图标 (Draw Icon):</strong> 表示“抽牌”行动的能力。打出具有此图标的卡牌可以从牌库中抽取更多卡牌加入手牌。</li>
-                            <li><strong class="icon-display">⚙️</strong> <strong>工具图标 (Tool Icon):</strong> 表示工具卡牌。工具不能单独执行行动，但与部落成员结合时可以增强其能力。</li>
                         </ul>
                     </div>
                 </section>
 
                 <section>
-                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">游戏胜利条件</h2>
-                    <p class="text-warm-secondary mb-4">《北极拾荒者》在最后一张“争夺资源卡”被获得时结束。最终的胜利条件是建立最大的部落。</p>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">卡牌圖標說明</h2>
+                    <p class="text-warm-secondary mb-4">這裡總結了遊戲中主要卡牌圖標及其含義。這些圖標通常顯示在卡牌的左側（部落成員圖標位於右下角）。理解這些圖標將幫助您更順利地掌握卡牌能力和遊戲進程。</p>
                     <div class="bg-white/50 p-6 rounded-lg shadow-sm">
-                        <h3 class="text-xl font-semibold mb-3">胜者的决定</h3>
-                        <p class="mb-2">游戏结束时，每个玩家计算其牌库中所有卡牌上“部落成员图标”的总数。拥有最多部落成员的玩家获胜。</p>
-                        <h3 class="text-xl font-semibold mb-3">平局处理</h3>
-                        <p class="mb-2">多个平局条件的存在，意味着玩家在游戏后期不仅需要考虑部落规模这一主要胜利条件，还需要考虑争夺资源数量或牌库总卡牌数量等次要目标。</p>
+                        <ul class="list-disc list-inside space-y-2">
+                            <li><strong class="icon-display">⛏️</strong> <strong>挖掘圖標 (Dig Icon):</strong> 表示“挖掘”行動的能力。打出具有此圖標的卡牌可以從垃圾場抽取更多卡牌。</li>
+                            <li><strong class="icon-display">🏹</strong> <strong>狩獵圖標 (Hunt Icon):</strong> 表示“狩獵”行動的能力。打出具有此圖標的卡牌可以產生用於僱傭僱傭兵的“食物”。</li>
+                            <li><strong class="icon-display">⚔️</strong> <strong>戰鬥圖標 (Fight Icon):</strong> 表示戰鬥能力。在小規模衝突階段計算戰鬥值時，將使用此圖標的數值。</li>
+                            <li><strong class="icon-display">👤</strong> <strong>部落成員圖標 (Tribe Member Icon):</strong> 位於每張卡牌的右下角，表示該卡牌是您部落的一員。遊戲結束時計算“部落大小”這一勝利條件時，將使用這些圖標的總數。</li>
+                            <li><strong class="icon-display">🃏</strong> <strong>抽牌圖標 (Draw Icon):</strong> 表示“抽牌”行動的能力。打出具有此圖標的卡牌可以從牌庫中抽取更多卡牌加入手牌。</li>
+                            <li><strong class="icon-display">⚙️</strong> <strong>工具圖標 (Tool Icon):</strong> 表示工具卡牌。工具不能單獨執行行動，但與部落成員結合時可以增強其能力。</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <section>
+                    <h2 class="text-2xl font-bold mb-4 border-b-2 border-accent pb-2">遊戲勝利條件</h2>
+                    <p class="text-warm-secondary mb-4">《北極拾荒者》在最後一張“爭奪資源卡”被獲得時結束。最終的勝利條件是建立最大的部落。</p>
+                    <div class="bg-white/50 p-6 rounded-lg shadow-sm">
+                        <h3 class="text-xl font-semibold mb-3">勝者的決定</h3>
+                        <p class="mb-2">遊戲結束時，每個玩家計算其牌庫中所有卡牌上“部落成員圖標”的總數。擁有最多部落成員的玩家獲勝。</p>
+                        <h3 class="text-xl font-semibold mb-3">平局處理</h3>
+                        <p class="mb-2">多個平局條件的存在，意味著玩家在遊戲後期不僅需要考慮部落規模這一主要勝利條件，還需要考慮爭奪資源數量或牌庫總卡牌數量等次要目標。</p>
                         <ul class="list-disc list-inside space-y-2">
                             <li>
-                                <strong>平局处理1：</strong>如果部落成员数量平局，则平局玩家中拥有最多“争夺资源卡”的玩家获胜。
+                                <strong>平局處理1：</strong>如果部落成員數量平局，則平局玩家中擁有最多“爭奪資源卡”的玩家獲勝。
                             </li>
                             <li>
-                                <strong>平局处理2：</strong>如果仍然平局，则平局玩家中牌库中“卡牌总数”最多的玩家获胜。
+                                <strong>平局處理2：</strong>如果仍然平局，則平局玩家中牌庫中“卡牌總數”最多的玩家獲勝。
                             </li>
                             <li>
-                                <strong>平局处理3：</strong>如果所有条件仍然平局，则所有平局玩家共享胜利。
+                                <strong>平局處理3：</strong>如果所有條件仍然平局，則所有平局玩家共享勝利。
                             </li>
                         </ul>
                     </div>
@@ -662,75 +718,77 @@
                 });
             });
 
+            // Accordion data for each language
             const accordionData = {
                 jp: [
                     { 
-                        title: '掘る (Dig) - フェーズ2：資源を集める', 
-                        content: 'ジャンクヤードからカードを引き、1枚を選んで獲得します。デッキに新しい道具や人材を加える基本アクションです。例えば、<strong>スカベンジャー</strong>（「掘る」能力 <span class="icon-display">⛏️</span> を持つ人物カード）や<strong>シャベル</strong>（「掘る」能力 <span class="icon-display">⛏️</span> を強化する道具カード）をプレイすることで、より多くのカードを引くことができます。' 
-                    },
-                    { 
-                        title: '狩る (Hunt) - フェーズ2：資源を集める', 
-                        content: '強力な傭兵を雇うために必要な「食料 <span class="icon-display">🍖</span>」を生成します。食料はそのラウンド中のみ有効です。例えば、<strong>用心棒</strong>（「狩る」能力 <span class="icon-display">🏹</span> を持つ人物カード）をプレイすることで食料を生成できます。' 
-                    },
-                    { 
-                        title: '雇う (Hire) - フェーズ2：資源を集める (フリーアクション)', 
-                        content: '食料 <span class="icon-display">🍖</span> や医薬品 <span class="icon-display">💊</span> を支払って、強力な能力を持つ「傭兵」を1ラウンドに1人まで雇います。傭兵は表向きに置かれているカードから選びます。' 
-                    },
-                    { 
-                        title: '引く (Draw) - フェーズ2：資源を集める', 
+                        title: '引く (Draw)', 
                         content: '自分の山札からカードを引き、手札を増やします。アクションの選択肢を広げる重要な手段です。例えば、特定の<strong>人物カード</strong>が「引く」能力を持っています。' 
                     },
                     { 
-                        title: '捨てる (Trash) - フェーズ2：資源を集める (フリーアクション)', 
-                        content: '手札の不要なカード（例：初期デッキの<strong>難民</strong> <span class="icon-display">👤</span> や<strong>ジャンクカード</strong>）をゲームから取り除き、デッキを効率化（圧縮）します。捨てても新しいカードは引けません。' 
+                        title: '掘る (Dig)', 
+                        content: 'ジャンクヤードからカードを引き、1枚を選んで獲得します。デッキに新しい道具や人材を加える基本アクションです。例えば、<strong>スカベンジャー</strong>（「掘る」能力 <span class="icon-display">⛏️</span> を持つ人物カード）や<strong>シャベル</strong>（「掘る」能力 <span class="icon-display">⛏️</span> を強化する道具カード）をプレイすることで、より多くのカードを引くことができます。選んだカードは墓地に置かれ、残りのカードはジャンクヤードデッキの一番下に戻されます。' 
+                    },
+                    { 
+                        title: '狩る (Hunt)', 
+                        content: '強力な傭兵を雇うために必要な「食料 <span class="icon-display">🍖</span>」を生成します。食料はそのラウンド中のみ有効です。例えば、<strong>用心棒</strong>（「狩る」能力 <span class="icon-display">🏹</span> を持つ人物カード）をプレイすることで食料を生成できます。生成した食料は雇うアクションで使用できます。' 
+                    },
+                    { 
+                        title: '雇う (Hire)', 
+                        content: '狩るアクションで生成した食料 <span class="icon-display">🍖</span> やカードの医薬品 <span class="icon-display">💊</span> を使用して、強力な能力を持つ「傭兵」を1ラウンドに1人まで雇います。必要な食料 <span class="icon-display">🍖</span> や医薬品 <span class="icon-display">💊</span>は傭兵カードの左上にアイコンで表示されています。 傭兵は傭兵デッキ中の表向きに置かれているカードから選びます。' 
+                    },
+                    { 
+                        title: '捨てる (Trash)', 
+                        content: '手札の不要なカード（例：初期デッキの<strong>難民</strong> <span class="icon-display">👤</span> や<strong>ジャンクカード</strong>）をゲームから取り除き、デッキを効率化（圧縮）します。捨てるカードはジャンクヤードデッキに入れ、シャッフルします。捨てても新しいカードは引けません。' 
                     }
                 ],
                 en: [
                     { 
-                        title: 'Dig - Phase 2: Gather Resources', 
-                        content: 'Draw cards from the Junkyard and choose one to keep. A basic action to add new tools and people to your deck. For example, playing a <strong>Scavenger</strong> (a person card with "Dig" ability <span class="icon-display">⛏️</span>) or a <strong>Shovel</strong> (a tool card that enhances "Dig" ability <span class="icon-display">⛏️</span>) allows you to draw more cards.' 
+                        title: 'Draw', 
+                        content: 'Draw cards from your deck to increase your hand size, expanding your options. For example, certain <strong>People Cards</strong> might have a "Draw" ability.' 
                     },
                     { 
-                        title: 'Hunt - Phase 2: Gather Resources', 
-                        content: 'Generate "food <span class="icon-display">🍖</span>," which is needed to hire powerful mercenaries. Food is only valid for the current round. For example, playing a <strong>Brawler</strong> (a person card with "Hunt" ability <span class="icon-display">🏹</span>) allows you to generate food.' 
+                        title: 'Dig', 
+                        content: 'Draw cards from the Junkyard and choose one to keep. A basic action to add new tools and people to your deck. For example, playing a <strong>Scavenger</strong> (a person card with "Dig" ability <span class="icon-display">⛏️</span>) or a <strong>Shovel</strong> (a tool card that enhances "Dig" ability <span class="icon-display">⛏️</span>) allows you to draw more cards. The chosen card is placed in your discard pile, and the remaining cards are returned to the bottom of the Junkyard deck.' 
                     },
                     { 
-                        title: 'Hire - Phase 2: Gather Resources (Free Action)', 
-                        content: 'Pay food <span class="icon-display">🍖</span> or medicine <span class="icon-display">💊</span> to hire one "mercenary" with powerful abilities per round. Mercenaries are chosen from the face-up piles.' 
+                        title: 'Hunt', 
+                        content: 'Generate "food <span class="icon-display">🍖</span>," which is needed to hire powerful mercenaries. Food is only valid for the current round. For example, playing a <strong>Brawler</strong> (a person card with "Hunt" ability <span class="icon-display">🏹</span>) allows you to generate food. The generated food can be used for the Hire action.' 
                     },
                     { 
-                        title: 'Draw - Phase 2: Gather Resources', 
-                        content: 'Draw cards from your deck to increase your hand size, expanding your options. For example, certain <strong>person cards</strong> might have a "Draw" ability.' 
+                        title: 'Hire', 
+                        content: 'Use food <span class="icon-display">🍖</span> generated by the Hunt action or medicine <span class="icon-display">💊</span> from cards to hire up to one powerful "Mercenary" per round. The required food <span class="icon-display">🍖</span> or medicine <span class="icon-display">💊</span> is indicated by icons on the top left of the mercenary card. Mercenaries are chosen from the face-up cards in the Mercenary decks.' 
                     },
                     { 
-                        title: 'Trash - Phase 2: Gather Resources (Free Action)', 
-                        content: 'Remove unwanted cards (e.g., starter deck <strong>Refugees</strong> <span class="icon-display">👤</span> or <strong>Junk cards</strong>) from the game to make your deck more efficient (deck thinning). You do not draw replacement cards for those trashed.' 
+                        title: 'Trash', 
+                        content: 'Remove unwanted cards (e.g., starter deck <strong>Refugees</strong> <span class="icon-display">👤</span> or <strong>Junk cards</strong>) from the game to make your deck more efficient (deck thinning). Trashed cards are put into the Junkyard deck and shuffled. You do not draw replacement cards for those trashed.' 
                     }
                 ],
                 cn: [
                     { 
-                        title: '挖掘 (Dig) - 阶段2：收集资源', 
-                        content: '从垃圾场抽牌，选择一张获得。这是向牌库添加新工具和人员的基本行动。例如，打出<strong>拾荒者</strong>（具有“挖掘”能力 <span class="icon-display">⛏️</span> 的人员卡牌）或<strong>铲子</strong>（增强“挖掘”能力 <span class="icon-display">⛏️</span> 的工具卡牌）可以抽取更多卡牌。' 
+                        title: '抽牌 (Draw)', 
+                        content: '從自己的牌庫中抽取卡牌，增加手牌數量。這是擴大行動選擇的重要手段。例如，某些<strong>人員卡牌</strong>可能具有“抽牌”能力。' 
                     },
                     { 
-                        title: '狩猎 (Hunt) - 阶段2：收集资源', 
-                        content: '产生雇佣强大雇佣兵所需的“食物”。食物仅在当前回合有效。例如，打出<strong>打手</strong>（具有“狩猎”能力 <span class="icon-display">🏹</span> 的人员卡牌）可以产生食物。' 
+                        title: '挖掘 (Dig)', 
+                        content: '從垃圾場抽牌，選擇一張獲得。這是向牌庫添加新工具和人員的基本行動。例如，打出<strong>拾荒者</strong>（具有“挖掘”能力 <span class="icon-display">⛏️</span> 的人員卡牌）或<strong>鏟子</strong>（增強“挖掘”能力 <span class="icon-display">⛏️</span> 的工具卡牌）可以抽取更多卡牌。選定的卡牌將被放置在棄牌堆中，其餘卡牌將返回垃圾場牌庫底部。' 
                     },
                     { 
-                        title: '雇佣 (Hire) - 阶段2：收集资源 (自由行动)', 
-                        content: '支付食物或药品，每轮最多可雇佣一名具有强大能力的“雇佣兵”。雇佣兵从面朝上放置的牌堆中选择。' 
+                        title: '狩獵 (Hunt)', 
+                        content: '產生僱傭強大僱傭兵所需的“食物 <span class="icon-display">🍖</span>”。食物僅在當前回合有效。例如，打出<strong>打手</strong>（具有“狩獵”能力 <span class="icon-display">🏹</span> 的人員卡牌）可以產生食物。產生的食物可用於僱傭行動。' 
                     },
                     { 
-                        title: '抽牌 (Draw) - 阶段2：收集资源', 
-                        content: '从自己的牌库中抽取一张或多张卡牌加入手牌。例如，某些<strong>人员卡牌</strong>可能具有“抽牌”能力。' 
+                        title: '僱傭 (Hire)', 
+                        content: '使用狩獵行動產生的食物 <span class="icon-display">🍖</span> 或卡牌的藥品 <span class="icon-display">💊</span>，每輪最多僱傭一名具有強大能力的“僱傭兵”。僱傭兵卡牌左上方標示了所需的食物 <span class="icon-display">🍖</span> 或藥品 <span class="icon-display">💊</span>。僱傭兵從僱傭兵牌庫中面朝上放置的卡牌中選擇。' 
                     },
                     { 
-                        title: '废弃 (Trash) - 阶段2：收集资源 (自由行动)', 
-                        content: '从游戏中移除不需要的卡牌（例如：起始牌库的<strong>难民</strong> <span class="icon-display">👤</span> 或<strong>垃圾卡牌</strong>），以提高您的牌库效率（牌库精简）。废弃卡牌不会获得替代卡牌。' 
+                        title: '廢棄 (Trash)', 
+                        content: '從遊戲中移除不需要的卡牌（例如：起始牌庫的<strong>難民</strong> <span class="icon-display">👤</span> 或<strong>垃圾卡牌</strong>），以提高您的牌庫效率（牌庫精簡）。廢棄的卡牌將放入垃圾場牌庫並洗勻。廢棄後不會抽取新卡牌。' 
                     }
                 ]
             };
             
+            // Function to create accordion items
             function createAccordionItem(title, content) {
                 const itemDiv = document.createElement('div');
                 itemDiv.className = 'bg-white/60 rounded-lg shadow-sm';
@@ -764,6 +822,7 @@
                 return itemDiv;
             }
 
+            // Populate accordion containers based on language
             document.querySelectorAll('.accordion-container').forEach(container => {
                 const lang = container.closest('.lang-content').id.split('-')[1];
                 container.innerHTML = ''; // Clear existing content to prevent duplicates on language switch
@@ -774,7 +833,7 @@
 
             // Chart configuration with original warm-neutral palette
             const chartData = {
-                labels: ['难民 (Refugee)', '拾荒者 (Scavenger)', '打手 (Brawler)', '长矛 (Spear)', '铲子 (Shovel)'],
+                labels: ['難民 (Refugee)', '拾荒者 (Scavenger)', '打手 (Brawler)', '長矛 (Spear)', '铲子 (Shovel)'],
                 datasets: [{
                     data: [4, 3, 1, 1, 1],
                     backgroundColor: ['#BDB5AA', '#A08C7D', '#706C61', '#CBBFAC', '#E2DACE'], 
